@@ -384,6 +384,19 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
         }
     }
 
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_1);
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_2);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_UPSTAIRS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_50_STAR_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_PSS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_WF_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_CCM_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_JRB_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITDW_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITFS_DOOR);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_1);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_2);
+
     switch (gCurrLevelNum) {
         case LEVEL_BOWSER_1:
             if (!(save_file_get_flags() & (SAVE_FLAG_HAVE_KEY_1 | SAVE_FLAG_UNLOCKED_BASEMENT_DOOR))) {
@@ -406,6 +419,19 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
             }
             break;
     }
+
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_1);
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_2);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_UPSTAIRS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_50_STAR_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_PSS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_WF_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_CCM_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_JRB_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITDW_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITFS_DOOR);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_1);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_2);
 }
 
 s32 save_file_exists(s32 fileIndex) {
@@ -461,7 +487,8 @@ s32 save_file_get_total_star_count(s32 fileIndex, s32 minCourse, s32 maxCourse) 
     }
 
     // Add castle secret star count.
-    return save_file_get_course_star_count(fileIndex, COURSE_NUM_TO_INDEX(COURSE_NONE)) + count;
+    // return save_file_get_course_star_count(fileIndex, COURSE_NUM_TO_INDEX(COURSE_NONE)) + count;
+    return 70;
 }
 
 void save_file_set_flags(u32 flags) {

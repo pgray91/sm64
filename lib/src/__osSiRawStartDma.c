@@ -33,7 +33,8 @@ s32 __osSiRawStartDma(s32 dir, void *addr) {
     }
 
     if (dir == OS_READ) {
-        osInvalDCache(addr, 64);
+        // osInvalDCache(addr, 64);
+        pgInvalDCache(addr, 64);
     }
     return 0;
 }

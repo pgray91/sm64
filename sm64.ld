@@ -219,6 +219,7 @@ SECTIONS
         BUILD_DIR/libultra.a:osAiSetFrequency.o(.text);
         BUILD_DIR/libultra.a:osAiSetNextBuffer.o(.text);
         BUILD_DIR/libultra.a:osInvalDCache.o(.text);
+        BUILD_DIR/libultra.a:pgInvalDCache.o(.text);
         BUILD_DIR/libultra.a:osInvalICache.o(.text);
         BUILD_DIR/libultra.a:osWritebackDCacheAll.o(.text);
         BUILD_DIR/libultra.a:osContStartReadData.o(.text);
@@ -363,6 +364,7 @@ SECTIONS
         BUILD_DIR/libultra.a:motor.o(.text);
 #endif
         BUILD_DIR/libultra.a:osInvalDCache.o(.text);
+        BUILD_DIR/libultra.a:pgInvalDCache.o(.text);
         BUILD_DIR/libultra.a:osPiStartDma.o(.text);
         BUILD_DIR/libultra.a:bzero.o(.text);
         BUILD_DIR/libultra.a:osInvalICache.o(.text);
@@ -537,6 +539,7 @@ SECTIONS
         BUILD_DIR/libultra.a:llmuldiv.o(.text);
         BUILD_DIR/libultra.a:llmuldiv_gcc.o(.text);
         BUILD_DIR/libultra.a:osInvalDCache.o(.text);
+        BUILD_DIR/libultra.a:pgInvalDCache.o(.text);
         BUILD_DIR/libultra.a:osPiStartDma.o(.text);
         BUILD_DIR/libultra.a:bzero.o(.text);
         BUILD_DIR/libultra.a:osInvalICache.o(.text);

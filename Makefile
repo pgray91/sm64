@@ -23,7 +23,7 @@ TARGET_N64 ?= 1
 #   ido - uses the SGI IRIS Development Option compiler, which is used to build
 #         an original matching N64 ROM
 #   gcc - uses the GNU C Compiler
-COMPILER ?= ido
+COMPILER ?= gcc
 $(eval $(call validate-option,COMPILER,ido gcc))
 
 
@@ -112,7 +112,7 @@ ifeq      ($(COMPILER),ido)
 else ifeq ($(COMPILER),gcc)
   NON_MATCHING := 1
   MIPSISET     := -mips3
-  OPT_FLAGS    := -O2
+  OPT_FLAGS    := -Og -g
 endif
 
 
@@ -309,8 +309,8 @@ IQUE_LD_PATH := $(TOOLS_DIR)/ique_ld
 # detect prefix for MIPS toolchain
 ifneq      ($(call find-command,mips-linux-gnu-ld),)
   CROSS := mips-linux-gnu-
-else ifneq ($(call find-command,mips64-linux-gnu-ld),)
-  CROSS := mips64-linux-gnu-
+# else ifneq ($(call find-command,mips64-linux-gnu-ld),)
+#   CROSS := mips64-linux-gnu-
 else ifneq ($(call find-command,mips64-elf-ld),)
   CROSS := mips64-elf-
 else
@@ -404,7 +404,7 @@ else
   CFLAGS += -non_shared -Wab,-r4300_mul -Xcpluscomm -Xfullwarn -signed -32
 endif
 
-ASFLAGS   := -march=vr4300 -mabi=32 $(foreach i,$(INCLUDE_DIRS),-I$(i)) $(foreach d,$(DEFINES),--defsym $(d))
+ASFLAGS   := --gen-debug -march=vr4300 -mabi=32 $(foreach i,$(INCLUDE_DIRS),-I$(i)) $(foreach d,$(DEFINES),--defsym $(d))
 RSPASMFLAGS := $(foreach d,$(DEFINES),-definelabel $(subst =, ,$(d)))
 
 ifeq ($(shell getconf LONG_BIT), 32)
@@ -577,10 +577,14 @@ $(BUILD_DIR)/%.ci4: %.ci4.png
 
 # Link segment file to resolve external labels
 # TODO: ideally this would be `-Trodata-segment=0x07000000` but that doesn't set the address
-$(BUILD_DIR)/%.elf: $(BUILD_DIR)/%.o
-	$(call print,Linking ELF file:,$<,$@)
+$(BUILD_DIR)/%.elf: $(BUILD_DIR)/%.o $(BUILD_DIR)/bin/%.o
+	$(call print,Linking ELF fileeeeeee22222222:$(SEGMENT_ADDRESS),$<,$@)
 	$(V)$(LD) -e 0 -Ttext=$(SEGMENT_ADDRESS) -Map $@.map -o $@ $<
 # Override for leveldata.elf, which otherwise matches the above pattern
+.SECONDEXPANSION:
+$(BUILD_DIR)/bin/%.elf: $(BUILD_DIR)/bin/%.o
+	$(call print,Linking ELF fileeeeeee:$(SEGMENT_ADDRESS),$<,$@)
+	$(V)$(LD) -e 0 -Ttext=$(SEGMENT_ADDRESS) -Map $@.map -o $@ $<
 .SECONDEXPANSION:
 $(BUILD_DIR)/levels/%/leveldata.elf: $(BUILD_DIR)/levels/%/leveldata.o $(BUILD_DIR)/bin/$$(TEXTURE_BIN).elf
 	$(call print,Linking ELF file:,$<,$@)

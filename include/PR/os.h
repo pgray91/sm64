@@ -511,6 +511,7 @@ extern void             osInitRdb(u8 *sendBuf, u32 sendSize);
 /* Cache operations and macros */
 
 extern void        osInvalDCache(void *, size_t);
+extern void        pgInvalDCache(void *, size_t);
 extern void        osInvalICache(void *, size_t);
 extern void        osWritebackDCache(void *, size_t);
 extern void        osWritebackDCacheAll(void);

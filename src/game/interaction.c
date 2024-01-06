@@ -906,6 +906,21 @@ u32 interact_warp_door(struct MarioState *m, UNUSED u32 interactType, struct Obj
     s16 warpDoorId = o->oBhvParams >> 24;
     u32 actionArg;
 
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_1);
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_2);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_UPSTAIRS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_50_STAR_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_PSS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_WF_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_CCM_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_JRB_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITDW_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITFS_DOOR);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_1);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_2);
+
+    saveFlags = save_file_get_flags();
+
     if (m->action == ACT_WALKING || m->action == ACT_DECELERATING) {
         if (warpDoorId == 1 && !(saveFlags & SAVE_FLAG_UNLOCKED_UPSTAIRS_DOOR)) {
             if (!(saveFlags & SAVE_FLAG_HAVE_KEY_2)) {
@@ -1000,6 +1015,19 @@ u32 interact_door(struct MarioState *m, UNUSED u32 interactType, struct Object *
     s16 requiredNumStars = o->oBhvParams >> 24;
     s16 numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
 
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_1);
+    save_file_set_flags(SAVE_FLAG_HAVE_KEY_2);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_UPSTAIRS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_50_STAR_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_PSS_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_WF_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_CCM_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_JRB_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITDW_DOOR);
+    save_file_set_flags(SAVE_FLAG_UNLOCKED_BITFS_DOOR);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_1);
+    save_file_set_flags(SAVE_FLAG_COLLECTED_MIPS_STAR_2);
+
     if (m->action == ACT_WALKING || m->action == ACT_DECELERATING) {
         if (numStars >= requiredNumStars) {
             u32 actionArg = should_push_or_pull_door(m, o);
@@ -1020,9 +1048,9 @@ u32 interact_door(struct MarioState *m, UNUSED u32 interactType, struct Object *
                 enterDoorAction = ACT_ENTERING_STAR_DOOR;
             }
 
-            if (doorSaveFileFlag != 0 && !(save_file_get_flags() & doorSaveFileFlag)) {
-                enterDoorAction = ACT_UNLOCKING_STAR_DOOR;
-            }
+            // if (doorSaveFileFlag != 0 && !(save_file_get_flags() & doorSaveFileFlag)) {
+            //     enterDoorAction = ACT_UNLOCKING_STAR_DOOR;
+            // }
 
             return set_mario_action(m, enterDoorAction, actionArg);
         } else if (!sDisplayingDoorText) {
